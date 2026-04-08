@@ -1,0 +1,101 @@
+# .NET
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+*.dll
+*.exe
+*.pdb
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.vcproj
+*.csproj.user
+*.publishsettings
+*.cache
+*.codeanalysis.log
+*.vspscc
+*.vssscc
+.stylecop
+*.resharper.user
+*.resharper
+*.DotSettings.user
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.npm
+.yarn-integrity
+.pnp
+.pnp.js
+
+# Angular
+dist/
+.angular/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Visual Studio
+.vs/
+*.sln
+*.csproj
+*.fsproj
+*.vbproj
+*.dbmdl
+*.dbproj.schemaview
+*.jfm
+*.publish.xml
+*.azds.yaml
+*.helm/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Database
+*.mdf
+*.ldf
+
+# Secrets
+appsettings.Production.json
+appsettings.Staging.json
+secrets.json
+
+# Build Output
+build/
+out/
+
+# Coverage
+coverage/
+*.lcov
+
+# Temporary Files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~

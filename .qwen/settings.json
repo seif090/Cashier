@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(c:\\Users\\seaif\\Downloads\\stitch_\\azure_meridian/**)",
+      "Read(c:\\Users\\seaif\\Downloads\\stitch_\\pos/**)",
+      "Bash(mkdir *)"
+    ]
+  },
+  "$version": 3
+}

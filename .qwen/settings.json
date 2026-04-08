@@ -16,7 +16,9 @@
       "Bash(timeout *)",
       "Read(c:\\Users\\seaif\\.angular/**)",
       "Bash(taskkill *)",
-      "Bash(wmic *)"
+      "Bash(wmic *)",
+      "Bash(curl *)",
+      "Bash(powershell *)"
     ]
   },
   "$version": 3

@@ -169,9 +169,9 @@ import { Subject, takeUntil } from 'rxjs';
             <span class="body-md text-on-surface-variant">المجموع الفرعي</span>
             <span class="body-md">{{ cartTotal().subTotal | number:'1.2-2' }} ر.س</span>
           </div>
-          <div class="total-row" *ngIf="appliedDiscount">
-            <span class="body-md text-success">الخصم ({{ appliedDiscount.code }})</span>
-            <span class="body-md text-success">-{{ discountAmount | number:'1.2-2' }} ر.س</span>
+          <div class="total-row" *ngIf="appliedDiscount()">
+            <span class="body-md text-success">الخصم ({{ appliedDiscount()?.code }})</span>
+            <span class="body-md text-success">-{{ discountAmount() | number:'1.2-2' }} ر.س</span>
           </div>
           <div class="total-row">
             <span class="body-md text-on-surface-variant">الضريبة (15%)</span>
@@ -179,7 +179,7 @@ import { Subject, takeUntil } from 'rxjs';
           </div>
           <div class="total-row grand-total">
             <span class="headline-sm text-primary">الإجمالي</span>
-            <span class="display-sm text-primary">{{ finalTotal | number:'1.2-2' }} ر.س</span>
+            <span class="display-sm text-primary">{{ finalTotal() | number:'1.2-2' }} ر.س</span>
           </div>
         </div>
 
@@ -242,25 +242,25 @@ import { Subject, takeUntil } from 'rxjs';
       <div class="modal-overlay" *ngIf="showPaymentModal" (click)="showPaymentModal = false">
         <div class="modal-content" (click)="$event.stopPropagation()">
           <h2 class="headline-sm text-primary mb-lg">الدفع</h2>
-          <div class="payment-total display-lg text-secondary mb-lg">{{ finalTotal | number:'1.2-2' }} ر.س</div>
-          
+          <div class="payment-total display-lg text-secondary mb-lg">{{ finalTotal() | number:'1.2-2' }} ر.س</div>
+
           <div class="payment-methods mb-lg">
-            <button class="payment-method-btn" [class.active]="paymentMethod === 'Cash'" (click)="paymentMethod = 'Cash'">
+            <button class="payment-method-btn" [class.active]="paymentMethod() === 'Cash'" (click)="paymentMethod.set('Cash')">
               💵 نقدي
             </button>
-            <button class="payment-method-btn" [class.active]="paymentMethod === 'Card'" (click)="paymentMethod = 'Card'">
+            <button class="payment-method-btn" [class.active]="paymentMethod() === 'Card'" (click)="paymentMethod.set('Card')">
               💳 بطاقة
             </button>
-            <button class="payment-method-btn" [class.active]="paymentMethod === 'Mixed'" (click)="paymentMethod = 'Mixed'">
+            <button class="payment-method-btn" [class.active]="paymentMethod() === 'Mixed'" (click)="paymentMethod.set('Mixed')">
               🔄 مختلط
             </button>
           </div>
 
-          <div class="form-group mb-md" *ngIf="paymentMethod === 'Cash'">
+          <div class="form-group mb-md" *ngIf="paymentMethod() === 'Cash'">
             <label class="label-sm">المبلغ المستلم</label>
             <input type="number" class="input" [formGroup]="paymentForm" formControlName="receivedAmount" placeholder="0.00" />
-            <div *ngIf="changeAmount > 0" class="change-amount text-success display-sm mt-sm">
-              الباقي: {{ changeAmount | number:'1.2-2' }} ر.س
+            <div *ngIf="changeAmount() > 0" class="change-amount text-success display-sm mt-sm">
+              الباقي: {{ changeAmount() | number:'1.2-2' }} ر.س
             </div>
           </div>
 
@@ -281,8 +281,8 @@ import { Subject, takeUntil } from 'rxjs';
         <div class="modal-content" (click)="$event.stopPropagation()">
           <h2 class="headline-sm text-primary mb-lg">تطبيق خصم</h2>
           <input type="text" class="input mb-md" placeholder="أدخل كود الخصم..." [formGroup]="discountForm" formControlName="code" />
-          <div *ngIf="discountError" class="error-banner mb-md">
-            <span class="label-sm">{{ discountError }}</span>
+          <div *ngIf="discountError()" class="error-banner mb-md">
+            <span class="label-sm">{{ discountError() }}</span>
           </div>
           <div class="discount-actions">
             <button class="btn btn-outline w-full mb-md" (click)="showDiscountModal = false">إلغاء</button>
@@ -310,30 +310,30 @@ import { Subject, takeUntil } from 'rxjs';
             </div>
             
             <div class="receipt-info mb-md">
-              <p>رقم الفاتورة: {{ lastOrder?.orderNumber }}</p>
-              <p>التاريخ: {{ lastOrder?.createdAt | date:'yyyy-MM-dd HH:mm' }}</p>
+              <p>رقم الفاتورة: {{ lastOrder()?.orderNumber }}</p>
+              <p>التاريخ: {{ lastOrder()?.createdAt | date:'yyyy-MM-dd HH:mm' }}</p>
               <p *ngIf="selectedCustomer()">العميل: {{ selectedCustomer()?.nameAr }}</p>
             </div>
-            
+
             <div class="receipt-items mb-md">
-              <div *ngFor="let item of lastOrder?.items" class="receipt-item">
+              <div *ngFor="let item of lastOrder()?.items" class="receipt-item">
                 <span>{{ item.productNameAr }} x{{ item.quantity }}</span>
                 <span>{{ item.totalAmount | number:'1.2-2' }} ر.س</span>
               </div>
             </div>
-            
+
             <div class="receipt-totals">
               <div class="total-row">
                 <span>المجموع الفرعي</span>
-                <span>{{ lastOrder?.subTotal | number:'1.2-2' }} ر.س</span>
+                <span>{{ lastOrder()?.subTotal | number:'1.2-2' }} ر.س</span>
               </div>
               <div class="total-row">
                 <span>الضريبة (15%)</span>
-                <span>{{ lastOrder?.taxAmount | number:'1.2-2' }} ر.س</span>
+                <span>{{ lastOrder()?.taxAmount | number:'1.2-2' }} ر.س</span>
               </div>
               <div class="total-row grand-total">
                 <span class="headline-sm">الإجمالي</span>
-                <span class="display-sm">{{ lastOrder?.totalAmount | number:'1.2-2' }} ر.س</span>
+                <span class="display-sm">{{ lastOrder()?.totalAmount | number:'1.2-2' }} ر.س</span>
               </div>
             </div>
             
@@ -858,7 +858,7 @@ export class POSEnhancedComponent implements OnInit, OnDestroy {
   paymentMethod = signal<string>('Cash');
   changeAmount = computed(() => {
     const received = this.paymentForm.get('receivedAmount')?.value || 0;
-    return Math.max(0, received - this.finalTotal);
+    return Math.max(0, received - this.finalTotal());
   });
 
   // Discount
@@ -909,7 +909,7 @@ export class POSEnhancedComponent implements OnInit, OnDestroy {
   }
 
   registerShortcuts(): void {
-    this.keyboardService.register({ key: 'F2', description: 'بحث بالباركود', action: () => document.querySelector('.search-input')?.focus() });
+    this.keyboardService.register({ key: 'F2', description: 'بحث بالباركود', action: () => (document.querySelector('.search-input') as HTMLInputElement)?.focus() });
     this.keyboardService.register({ key: 'F3', description: 'تعليق الطلب', action: () => this.holdOrder() });
     this.keyboardService.register({ key: 'F5', description: 'دفع', action: () => this.showPaymentModal = true });
     this.keyboardService.register({ key: 'F6', description: 'خصم', action: () => this.showDiscountModal = true });
@@ -1010,14 +1010,14 @@ export class POSEnhancedComponent implements OnInit, OnDestroy {
 
   holdOrder(): void {
     if (this.cartItems().length === 0) return;
-    
+
     const orderData = {
       userId: 1,
       items: this.cartItems().map(item => ({
         productId: item.productId,
         productName: item.productName,
         productNameAr: item.productNameAr,
-        productSKU: item.productSKU || '',
+        productSKU: '',
         quantity: item.quantity,
         unitPrice: item.unitPrice,
         taxRate: item.taxRate,
@@ -1030,7 +1030,7 @@ export class POSEnhancedComponent implements OnInit, OnDestroy {
       subTotal: this.cartTotal().subTotal,
       taxAmount: this.cartTotal().taxAmount,
       discountAmount: this.discountAmount(),
-      totalAmount: this.finalTotal,
+      totalAmount: this.finalTotal(),
       customerId: this.selectedCustomer()?.id,
       customerName: this.selectedCustomer()?.nameAr,
       terminalId: '01'
@@ -1076,7 +1076,7 @@ export class POSEnhancedComponent implements OnInit, OnDestroy {
     const cart = this.cartItems();
     if (cart.length === 0) return;
 
-    const receivedAmount = this.paymentForm.get('receivedAmount')?.value || this.finalTotal;
+    const receivedAmount = this.paymentForm.get('receivedAmount')?.value || this.finalTotal();
 
     this.orderService.submitOrder(
       this.paymentMethod(),
@@ -1088,10 +1088,10 @@ export class POSEnhancedComponent implements OnInit, OnDestroy {
         this.lastOrder.set(order);
         this.showPaymentModal = false;
         this.showReceiptModal = true;
-        
+
         // Add loyalty points if customer selected
         if (this.selectedCustomer()) {
-          const points = Math.floor(this.finalTotal);
+          const points = Math.floor(this.finalTotal());
           this.customerService.addLoyaltyPoints(this.selectedCustomer()!.id, points).subscribe();
         }
       },

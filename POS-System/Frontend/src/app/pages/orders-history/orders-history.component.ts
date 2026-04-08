@@ -31,7 +31,7 @@ import { Order, OrderFilterRequest } from '../../models/order.models';
 
           <div class="order-items">
             <div *ngFor="let item of order.items" class="order-item">
-              <span>{{ item.productNameAr }}</span>
+              <span>{{ item.productName }}</span>
               <span>x{{ item.quantity }}</span>
               <span>{{ item.totalAmount | number:'1.2-2' }} ر.س</span>
             </div>

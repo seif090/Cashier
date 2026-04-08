@@ -3,7 +3,20 @@
     "allow": [
       "Read(c:\\Users\\seaif\\Downloads\\stitch_\\azure_meridian/**)",
       "Read(c:\\Users\\seaif\\Downloads\\stitch_\\pos/**)",
-      "Bash(mkdir *)"
+      "Bash(mkdir *)",
+      "Bash(dotnet *)",
+      "Bash(npm install)",
+      "Bash(npm start)",
+      "Bash(tasklist *)",
+      "Bash(ng *)",
+      "Bash(netstat *)",
+      "Bash(findstr *)",
+      "Bash(npx *)",
+      "Bash(set *)",
+      "Bash(timeout *)",
+      "Read(c:\\Users\\seaif\\.angular/**)",
+      "Bash(taskkill *)",
+      "Bash(wmic *)"
     ]
   },
   "$version": 3

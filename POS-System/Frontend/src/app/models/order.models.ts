@@ -16,6 +16,16 @@ export interface Order {
   items: OrderItem[];
 }
 
+export interface PagedResult<T> {
+  items: T[];
+  totalCount: number;
+  pageNumber: number;
+  pageSize: number;
+  totalPages: number;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
+}
+
 export interface OrderItem {
   id: number;
   productId: number;

@@ -12,7 +12,8 @@ export class CustomerService {
   readonly apiUrl = `${environment.apiUrl}/customers`;
 
   getCustomers(search?: string): Observable<Customer[]> {
-    const params = search ? { search } : {};
+    const params: any = {};
+    if (search) params.search = search;
     return this.http.get<Customer[]>(this.apiUrl, { params, headers: this.authService.authHeaders });
   }
 
@@ -98,7 +99,8 @@ export class RefundService {
   }
 
   getRefunds(orderId?: number): Observable<Refund[]> {
-    const params = orderId ? { orderId } : {};
+    const params: any = {};
+    if (orderId) params.orderId = orderId;
     return this.http.get<Refund[]>(this.apiUrl, { params, headers: this.authService.authHeaders });
   }
 
